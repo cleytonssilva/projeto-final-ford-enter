@@ -1,5 +1,5 @@
-<h1>Produtos </h1>
-<p>Esta é a página de produtos do seu aplicativo.</p>
+<!-- <h1>Produtos </h1>
+<p>Esta é a página de produtos do seu aplicativo.</p> -->
 
 <div class="container">
     
@@ -7,13 +7,24 @@
         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M2.9917 4.9834V18.917M9.96265 4.9834V18.917M15.9378 4.9834V18.917m2.9875-13.9336V18.917"/>
         <path stroke="currentColor" stroke-linecap="round" d="M5.47925 4.4834V19.417m1.9917-14.9336V19.417M21.4129 4.4834V19.417M13.4461 4.4834V19.417"/>
     </svg>Lista de Produtos</p>
-    <select >
+    <select (change)="alterarStatus($event)" class="form-select" aria-label="Default select example">
         <option value="" disabled selected>Produtos</option>
-        <option value="Estoque">Estoque</option>
-        <option value="Vendas">Vendas</option>
-        <option value="Compras">Compras</option>
+        <option value="estoque">Estoque</option>
+        <option value="vendas">Vendas</option>
+        <option value="compras">Compras</option>
           
     </select>
+    <div *ngFor="let produto of produtos">
+        <div *ngIf="produto.status === statusSelecionado" class="produto">
+          <h3>{{ produto.nome }}</h3>
+          <p>Preço: R$ {{ produto.preco }}</p>
+          <p>Descrição: {{ produto.descricao }}</p>
+        </div>
+    </div>
+
+
+    <!-- <button type="button" click="(adicionarProduto)" class="btn btn-primary">Adicionar Produto</button> -->
+    <!-- <button type="button" click="(removerProduto)" class="btn btn-secondary">Remover Produto</button> -->
 </div>
         
         
