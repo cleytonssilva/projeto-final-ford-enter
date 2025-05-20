@@ -1,5 +1,5 @@
 {
-  "name": "projeto-final",
+  "name": "dashboard-compras",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -17,7 +17,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "boostrap": "^2.0.0",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",
     "chart.js": "^4.4.9",
     "rxjs": "~7.8.0",
@@ -25,8 +25,8 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.11",
-    "@angular/cli": "^19.2.11",
+    "@angular-devkit/build-angular": "^19.2.10",
+    "@angular/cli": "^19.2.10",
     "@angular/compiler-cli": "^19.2.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.6.0",

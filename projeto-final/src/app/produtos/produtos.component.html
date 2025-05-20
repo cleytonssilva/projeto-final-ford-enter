@@ -1,30 +1,89 @@
-<!-- <h1>Produtos </h1>
-<p>Esta é a página de produtos do seu aplicativo.</p> -->
 
-<div class="container">
-    
-    <p><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M2.9917 4.9834V18.917M9.96265 4.9834V18.917M15.9378 4.9834V18.917m2.9875-13.9336V18.917"/>
-        <path stroke="currentColor" stroke-linecap="round" d="M5.47925 4.4834V19.417m1.9917-14.9336V19.417M21.4129 4.4834V19.417M13.4461 4.4834V19.417"/>
-    </svg>Lista de Produtos</p>
-    <select (change)="alterarStatus($event)" class="form-select" aria-label="Default select example">
-        <option value="" disabled selected>Produtos</option>
-        <option value="estoque">Estoque</option>
-        <option value="vendas">Vendas</option>
-        <option value="compras">Compras</option>
-          
-    </select>
-    <div *ngFor="let produto of produtos">
-        <div *ngIf="produto.status === statusSelecionado" class="produto">
-          <h3>{{ produto.nome }}</h3>
-          <p>Preço: R$ {{ produto.preco }}</p>
-          <p>Descrição: {{ produto.descricao }}</p>
+<div class="container-fluid py-4">
+
+  <div class="row mb-4">
+    <div class="col-lg-8 mb-4">
+      <div class="card">
+        <div class="card-header bg-white">
+          <p><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M2.9917 4.9834V18.917M9.96265 4.9834V18.917M15.9378 4.9834V18.917m2.9875-13.9336V18.917"/>
+            <path stroke="currentColor" stroke-linecap="round" d="M5.47925 4.4834V19.417m1.9917-14.9336V19.417M21.4129 4.4834V19.417M13.4461 4.4834V19.417"/>
+        </svg>Lista de Produtos</p>
+        <select (change)="alterarStatus($event)" class="form-select" aria-label="Default select example">
+            <option value="" disabled selected>Produtos</option>
+            <option value="estoque">Estoque</option>
+            <option value="vendas">Vendas</option>
+            <option value="compras">Compras</option>
+
+        </select>
+
         </div>
+        <div class="card-body">
+          <canvas id="mainChart" height="100"></canvas>
+          <div class="produtos-container">
+            <h2>Gestão de Produtos</h2>
+
+            <button class="btn btn-primary mb-3" (click)="abrirFormulario()">Adicionar Produto</button>
+
+            <div *ngIf="exibirFormulario" class="card mb-4">
+              <div class="card-header">
+                {{ produtoSelecionado?.id === 0 ? 'Novo Produto' : 'Editar Produto' }}
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="salvarProduto()">
+                  <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" [(ngModel)]="produtoSelecionado!.nome" name="nome" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" [(ngModel)]="produtoSelecionado!.descricao" name="descricao"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="preco" class="form-label">Preço</label>
+                    <input type="number" class="form-control" id="preco" [(ngModel)]="produtoSelecionado!.preco" name="preco" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="estoque" class="form-label">Estoque</label>
+                    <input type="number" class="form-control" id="estoque" [(ngModel)]="produtoSelecionado!.estoque" name="estoque" required>
+                  </div>
+                  <button type="submit" class="btn btn-success me-2">Salvar</button>
+                  <button type="button" class="btn btn-secondary" (click)="fecharFormulario()">Cancelar</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let produto of produtos">
+                    <td>{{ produto.id }}</td>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.descricao }}</td>
+                    <td>R$ {{ produto.preco | number:'1.2-2' }}</td>
+                    <td>{{ produto.estoque }}</td>
+                    <td>
+                      <button class="btn btn-warning btn-sm me-2" (click)="abrirFormulario(produto)">Editar</button>
+                      <button class="btn btn-danger btn-sm" (click)="excluirProduto(produto.id)">Excluir</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <!-- <button type="button" click="(adicionarProduto)" class="btn btn-primary">Adicionar Produto</button> -->
-    <!-- <button type="button" click="(removerProduto)" class="btn btn-secondary">Remover Produto</button> -->
+  </div>
 </div>
-        
-        
+

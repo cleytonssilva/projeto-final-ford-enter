@@ -1,19 +1,86 @@
 
+<div class="container-fluid py-4">
 
-<div class="container">
-    <!-- <h1>Usuários </h1>
-    <p>Esta é a página de usuários do seu aplicativo.</p> -->
-    <p><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
-    </svg>Lista de Usuários</p>
-    <select class="form-select" aria-label="Default select example">
-        <option value="" disabled selected>Usuarios</option>
-        <option value="ativos">Ativos</option>
-        <option value="inativos">Inativos</option>
-        <option value="bloqueados">Bloqueados</option>
-        <option value="desbloqueados">Desbloqueados</option>
-    </select>
-  
+  <div class="row mb-4">
+    <div class="col-lg-8 mb-4">
+      <div class="card">
+        <div class="card-header bg-white">
+          <p><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
+        </svg>Lista de Usuários</p>
+        <select class="form-select" aria-label="Default select example">
+          <option value="" disabled selected>Usuarios</option>
+          <option value="ativos">Administrador</option>
+          <option value="inativos">Requisitante</option>
+          <option value="bloqueados">Comprador</option>
+          <option value="desbloqueados">Aprovador</option>
+      </select>
+
+        </div>
+        <div class="card-body">
+          <canvas id="mainChart" height="300"></canvas>
+          <div class="usuarios-container">
+            <h2>Gestão de Usuários</h2>
+
+            <button class="btn btn-primary mb-3" (click)="abrirFormulario()">Adicionar Usuário</button>
+
+            <div *ngIf="exibirFormulario" class="card mb-4">
+              <div class="card-header">
+                {{ usuarioSelecionado?.id === 0 ? 'Novo Usuário' : 'Editar Usuário' }}
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="salvarUsuario()">
+                  <div class="mb-3">
+                    <label for="nomeUsuario" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nomeUsuario" [(ngModel)]="usuarioSelecionado!.nome" name="nomeUsuario" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="emailUsuario" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailUsuario" [(ngModel)]="usuarioSelecionado!.email" name="emailUsuario" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="funcaoUsuario" class="form-label">Função</label>
+                    <select class="form-select" id="funcaoUsuario" [(ngModel)]="usuarioSelecionado!.funcao" name="funcaoUsuario" required>
+                      <option value="administrador">Administrador</option>
+                      <option value="requisitante">Requisitante</option>
+                      <option value="comprador">Comprador</option>
+                      <option value="visualizador">Aprovador</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success me-2">Salvar</button>
+                  <button type="button" class="btn btn-secondary" (click)="fecharFormulario()">Cancelar</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Função</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usuario of usuarios">
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.funcao | titlecase }}</td>
+                    <td>
+                      <button class="btn btn-warning btn-sm me-2" (click)="abrirFormulario(usuario)">Editar</button>
+                      <button class="btn btn-danger btn-sm" (click)="excluirUsuario(usuario.id)">Excluir</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-        

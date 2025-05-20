@@ -1,0 +1,52 @@
+/* Usando Flexbox para o contêiner principal para flexibilidade */
+.produtos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaço entre os elementos */
+}
+
+/* Para a tabela, Bootstrap já é responsivo, mas podemos adicionar um pouco mais de controle */
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+    display: block;
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos touch */
+  }
+
+  .table-responsive thead, .table-responsive tbody, .table-responsive th, .table-responsive td, .table-responsive tr {
+    display: block;
+  }
+
+  .table-responsive thead tr {
+    position: absolute;
+    top: -9999px; /* Esconde o cabeçalho em telas pequenas */
+    left: -9999px;
+  }
+
+  .table-responsive td {
+    border: none;
+    position: relative;
+    padding-left: 50%; /* Espaço para o "cabeçalho" da célula */
+    text-align: left;
+  }
+
+  .table-responsive td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  /* Definição dos rótulos para cada célula em telas pequenas */
+  .table-responsive td:nth-of-type(1):before { content: "ID"; }
+  .table-responsive td:nth-of-type(2):before { content: "Nome"; }
+  .table-responsive td:nth-of-type(3):before { content: "Descrição"; }
+  .table-responsive td:nth-of-type(4):before { content: "Preço"; }
+  .table-responsive td:nth-of-type(5):before { content: "Estoque"; }
+  .table-responsive td:nth-of-type(6):before { content: "Ações"; }
+}

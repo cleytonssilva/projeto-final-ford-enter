@@ -1,0 +1,18 @@
+.relatorios-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-body canvas {
+  width: 100% !important;
+  height: 300px; /* Altura fixa para os gráficos */
+}
+
+/* Garante que as colunas do Bootstrap se ajustem em telas pequenas */
+@media (max-width: 767.98px) {
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
