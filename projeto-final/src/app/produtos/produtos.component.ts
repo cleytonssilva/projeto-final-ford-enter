@@ -11,6 +11,7 @@ interface Produto {
   descricao: string;
   preco: number;
   estoque: number;
+  status: string; // Adicionei a propriedade status
 }
 
 @Component({
@@ -30,6 +31,11 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
     { id:3, nome: 'Produto 3',estoque:4, preco: 3, descricao: 'Descrição do Produto 3', status: 'compras' },
     { id:4, nome: 'Produto 4',estoque:8, preco: 5, descricao: 'Descrição do Produto 4', status: 'estoque' },
     { id:5, nome: 'Produto 5',estoque:10, preco: 7, descricao: 'Descrição do Produto 5', status: 'vendas' },
+    { id:6, nome: 'Produto 6',estoque:2, preco: 9, descricao: 'Descrição do Produto 6', status: 'compras' },
+    { id:7, nome: 'Produto 7',estoque:6, preco: 11, descricao: 'Descrição do Produto 7', status: 'estoque' },
+    { id:8, nome: 'Produto 8',estoque:3, preco: 13, descricao: 'Descrição do Produto 8', status: 'vendas' },
+    { id:9, nome: 'Produto 9',estoque:1, preco: 15, descricao: 'Descrição do Produto 9', status: 'compras' },
+    { id:10, nome: 'Produto 10',estoque:5, preco: 17, descricao: 'Descrição do Produto 10', status: 'estoque' }
   ];
   statusSelecionado: string = '';
 
@@ -46,11 +52,24 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
 
   carregarProdutos(): void {
     this.produtoService.getProdutos().subscribe(data => {
-      // this.produtos = data;
+      this.produtos = data as Produto[]; // Certifique-se de que o tipo está correto
+      this.atualizarGrafico(this.produtos); // Atualiza o gráfico com os produtos carregados
+      this.statusSelecionado = 'estoque'; // Define o status padrão
+      this.produtos = this.produtos.filter(produto => produto.status === this.statusSelecionado);
+      this.atualizarGrafico(this.produtos); // Atualiza o gráfico com os produtos filtrados
+    }, error => {
+      console.error('Erro ao carregar produtos:', error);
+      alert('Erro ao carregar produtos. Tente novamente mais tarde.');
     });
   }
   abrirFormulario(produto?: Produto): void {
-    this.produtoSelecionado = produto ? { ...produto } : { id: 0, nome: '', descricao: '', preco: 0, estoque: 0 };
+    this.produtoSelecionado = produto ? { ...produto } : { id: 0, nome: '', descricao: '', preco: 0, estoque: 0, status: 'estoque' };
+    // Inicializa o produto selecionado com valores padrão
+    this.produtoSelecionado.status = 'estoque'; // Define o status padrão
+    // Adicionei a linha acima para garantir que o status seja definido
+    // ao abrir o formulário
+    //this.produtoSelecionado.status = 'estoque'; // Define o status padrão
+    //this.produtoSelecionado.status = 'estoque'; // Define o status padrão
     this.exibirFormulario = true;
   }
 
@@ -129,8 +148,3 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
     this.chart.update();
   }
 }
-
-
-
-
-
