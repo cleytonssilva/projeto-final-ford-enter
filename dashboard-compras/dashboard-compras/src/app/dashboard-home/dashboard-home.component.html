@@ -1,0 +1,88 @@
+<div class="dashboard-home-container">
+  <div class="jumbotron text-center bg-light p-5 rounded-3">
+    <h1 class="display-4">Bem-vindo ao Dashboard de Gestão de Compras Ford Enter!</h1>
+    <p class="lead" *ngIf="currentUser">Você está logado como: <strong>{{ currentUser.nome }} ({{ currentUser.funcao | titlecase }})</strong></p>
+    <hr class="my-4">
+    <p>Este sistema visa otimizar processos, reduzir custos e aumentar a eficiência nas aquisições da empresa.</p>
+
+    <div class="mt-4 mb-4">
+      <h5 class="mb-3">Simular Usuário:</h5>
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <button class="btn btn-outline-primary" (click)="changeUser(4, 'administrador')">Admin (Ana Paula)</button>
+        <button class="btn btn-outline-info" (click)="changeUser(1, 'requisitante')">Requisitante (João Silva)</button>
+        <button class="btn btn-outline-success" (click)="changeUser(2, 'aprovador')">Aprovador (Maria Souza)</button>
+        <button class="btn btn-outline-warning" (click)="changeUser(3, 'comprador')">Comprador (Pedro Alves)</button>
+        <button class="btn btn-outline-secondary" (click)="changeUser(5, 'visualizador')">Visualizador (Carlos Lima)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h3>Acesso Rápido:</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+        <div class="col" *ngIf="isRequisitante() || isAprovador() || isAdministrador() || isComprador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-file-earmark-text me-2"></i>Requisições de Compra</h5>
+              <p class="card-text">Crie e gerencie suas solicitações de compra.</p>
+              <a routerLink="/requisicoes" class="btn btn-primary">Ir para Requisições</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="isAprovador() || isAdministrador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-check-circle me-2"></i>Aprovações Pendentes</h5>
+              <p class="card-text">Revise e aprove as requisições de compra.</p>
+              <a routerLink="/requisicoes" class="btn btn-success">Revisar Aprovações</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="isComprador() || isAdministrador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-cart-check me-2"></i>Ordens de Compra</h5>
+              <p class="card-text">Gerencie as ordens de compra e fornecedores.</p>
+              <a routerLink="/fornecedores" class="btn btn-warning text-dark">Gerenciar Fornecedores</a>
+              </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="isAdministrador() || isComprador() || isVisualizador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-box-seam me-2"></i>Gestão de Produtos</h5>
+              <p class="card-text">Visualize e gerencie o catálogo de produtos.</p>
+              <a routerLink="/produtos" class="btn btn-info text-dark">Ver Produtos</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="isAdministrador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-people me-2"></i>Gestão de Usuários</h5>
+              <p class="card-text">Adicione, edite e remova usuários do sistema.</p>
+              <a routerLink="/usuarios" class="btn btn-danger">Gerenciar Usuários</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="isAdministrador() || isVisualizador() || isComprador()">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-graph-up me-2"></i>Relatórios e Análises</h5>
+              <p class="card-text">Acompanhe as tendências e métricas de compras.</p>
+              <a routerLink="/relatorios" class="btn btn-secondary">Ver Relatórios</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

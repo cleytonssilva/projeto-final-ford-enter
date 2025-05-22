@@ -4,29 +4,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
-// Importa os novos componentes
 import { RequisicoesComponent } from './requisicoes/requisicoes.component';
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
+import { PoliticaPrivacidadeComponent } from './politica-privacidade/politica-privacidade.component'; // NOVO: Importa o componente da Política de Privacidade
 
 // Define as rotas da aplicação
 export const routes: Routes = [
+  { path: 'dashboard', component: DashboardHomeComponent },
   { path: 'produtos', component: ProdutosComponent },
   { path: 'usuarios', component: UsuariosComponent },
-  { path: 'relatorios', component: RelatoriosComponent },
-  // Novas rotas para Requisições e Fornecedores
   { path: 'requisicoes', component: RequisicoesComponent },
   { path: 'fornecedores', component: FornecedoresComponent },
-  // Rota padrão: redireciona para a seção de Produtos ao acessar a raiz
-  { path: '', redirectTo: '/produtos', pathMatch: 'full' },
-  // Rota curinga: redireciona para a seção de Produtos se a rota não for encontrada
-  { path: '**', redirectTo: '/produtos' }
+  { path: 'relatorios', component: RelatoriosComponent },
+  { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent }, // NOVO: Rota para a Política de Privacidade
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dashboard' }
 ];
 
 @NgModule({
-  // Configura o roteamento principal da aplicação
   imports: [RouterModule.forRoot(routes)],
-  // Exporta o RouterModule para ser usado em outros módulos
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
