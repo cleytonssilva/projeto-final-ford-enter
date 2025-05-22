@@ -4,9 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
+import { MenuComponent } from './menu/menu.component';
 
 // Define as rotas da aplicação
 export const routes: Routes = [
+  { path: 'menu', component: MenuComponent },
   // Rota para a seção de Produtos
   { path: 'produtos', component: ProdutosComponent },
   // Rota para a seção de Usuários

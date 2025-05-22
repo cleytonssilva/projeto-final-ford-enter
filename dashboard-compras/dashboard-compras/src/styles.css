@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.9rem;
+  }
+  .btn {
+    font-size: 0.8rem;
+  }
+}
