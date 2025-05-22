@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// Importa os componentes que serão associados às rotas
+// Importa os componentes existentes
 import { ProdutosComponent } from './produtos/produtos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
-import { MenuComponent } from './menu/menu.component';
+// Importa os novos componentes
+import { RequisicoesComponent } from './requisicoes/requisicoes.component';
+import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 
 // Define as rotas da aplicação
 export const routes: Routes = [
-  { path: 'menu', component: MenuComponent },
-  // Rota para a seção de Produtos
   { path: 'produtos', component: ProdutosComponent },
-  // Rota para a seção de Usuários
   { path: 'usuarios', component: UsuariosComponent },
-  // Rota para a seção de Relatórios
   { path: 'relatorios', component: RelatoriosComponent },
+  // Novas rotas para Requisições e Fornecedores
+  { path: 'requisicoes', component: RequisicoesComponent },
+  { path: 'fornecedores', component: FornecedoresComponent },
   // Rota padrão: redireciona para a seção de Produtos ao acessar a raiz
   { path: '', redirectTo: '/produtos', pathMatch: 'full' },
   // Rota curinga: redireciona para a seção de Produtos se a rota não for encontrada
@@ -28,3 +29,4 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
